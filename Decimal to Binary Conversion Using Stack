@@ -1,0 +1,77 @@
+#include <stdio.h>
+ 
+#define MAX 32
+ 
+// Function to push an element into the stack
+void push(int stack[], int *top, int value)
+{
+   // Check for stack overflow
+   if (*top == MAX - 1)
+   {
+       printf("Stack Overflow!\n");
+       return;
+   }
+ 
+   (*top)++;
+   stack[*top] = value;
+}
+ 
+// Function to pop an element from the stack
+int pop(int stack[], int *top)
+{
+   // Check for stack underflow
+   if (*top == -1)
+   {
+       printf("Stack Underflow!\n");
+       return -1;
+   }
+ 
+   int value = stack[*top];
+   (*top)--;
+ 
+   return value;
+}
+ 
+int main()
+{
+   int stack[MAX];
+   int top = -1;
+   int decimal, remainder;
+ 
+   // Read decimal number from the user
+   printf("Enter a decimal number: ");
+   scanf("%d", &decimal);
+ 
+   // Special case for decimal number 0
+   if (decimal == 0)
+   {
+       printf("Binary equivalent = 0\n");
+       return 0;
+   }
+ 
+   // Convert decimal number to binary
+   while (decimal > 0)
+   {
+       // Find remainder after division by 2
+       remainder = decimal % 2;
+ 
+       // Store remainder in the stack
+       push(stack, &top, remainder);
+ 
+       // Divide decimal number by 2
+       decimal = decimal / 2;
+   }
+ 
+   // Display binary number by popping elements
+   printf("Binary equivalent = ");
+ 
+   while (top != -1)
+   {
+       printf("%d", pop(stack, &top));
+   }
+ 
+   printf("\n");
+ 
+   return 0;
+}
+ 
