@@ -1,0 +1,102 @@
+#include <stdio.h>
+#include <stdlib.h>
+ 
+// Node structure for stack
+struct Node
+{
+   int data;          // Data of the node
+   struct Node* next;  // Pointer to the next node in stack
+};
+ 
+// Pointer to the top of the stack
+struct Node* top = NULL;
+ 
+// Function to push an element onto the stack
+void push(int value)
+{
+   struct Node* newNode = (struct Node*) malloc(sizeof(struct Node)); // Allocate memory for new node
+newNode->data = value;     // Assign value to node
+newNode->next = top;       // Link new node to current top
+   top = newNode;             // Update top to new node
+printf("%d pushed to stack.\n", value);
+}
+ 
+// Function to pop an element from the stack
+void pop()
+{
+   if (top == NULL)
+​{          // Check for underflow
+​printf("Stack Underflow! Cannot pop.\n");
+       return;
+   }
+   struct Node* temp = top;   // Store current top
+printf("%d popped from stack.\n", temp->data);
+   top = top->next;           // Move top to next node
+   free(temp);                // Free memory of popped node
+}
+ 
+// Function to view the top element of the stack
+void peek() {
+   if (top == NULL) {          // If stack is empty
+printf("Stack is empty.\n");
+       return;
+   }
+printf("Top element is %d\n", top->data); // Print top element
+}
+ 
+// Function to display all elements in the stack
+void display() {
+   struct Node* temp = top;   // Start from top
+   if (temp == NULL) {         // If stack is empty
+printf("Stack is empty.\n");
+       return;
+   }
+printf("Stack elements (top to bottom):\n");
+   while (temp != NULL) {      // Traverse till the end
+printf("%d\n", temp->data);
+       temp = temp->next;     // Move to next node
+   }
+}
+ 
+// Main function: menu-driven program
+int main() {
+   int choice, value;
+ 
+   while (1) { // Infinite loop for menu
+       // Display menu options
+printf("\n--- Stack Menu ---\n");
+printf("1. Push\n");
+printf("2. Pop\n");
+printf("3. Peek\n");
+printf("4. Display\n");
+printf("5. Exit\n");
+printf("Enter your choice: ");
+scanf("%d", &choice);
+ 
+       switch (choice)
+​​ {
+​​ // Execute operation based on user choice
+           case 1:
+​​​​printf("Enter value to push: ");
+​​​​scanf("%d", &value);
+               push(value); // Call push function
+               break;
+           case 2:
+​​​​pop();      // Call pop function
+               break;
+           case 3:
+​​​​peek();     // Call peek function
+               break;
+           case 4:
+​​​​display();   // Call display function
+               break;
+           case 5:
+​​​​exit(0);    // Exit the program
+           default:
+​​​​printf("Invalid choice! Try again.\n");
+       }
+   }
+ 
+   return 0;
+}
+ 
